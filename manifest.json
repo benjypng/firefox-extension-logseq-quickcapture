@@ -10,12 +10,21 @@
   },
   "manifest_version": 2,
   "author": "hkgnp",
+  "options_ui": {
+    "page": "src/options.html"
+  },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "browser_action": {
     "default_icon": "icons/icon32.png",
     "default_title": "Beastify",
     "default_popup": "src/index.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com"
+    }
   }
 }
