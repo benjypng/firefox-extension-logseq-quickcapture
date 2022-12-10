@@ -8,8 +8,8 @@ Simple Firefox extension that makes use of the `quickCapture` from the `x-callba
 
 # Installing
 
-1. `git clone https://github.com/hkgnp/firefox-extension-logseq-quickcapture.git`
-2. Load it manually in Firefox.
+1. [Get the extension from Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/logseq-quick-capture/)
+2. Click Add to Firefox.
 
 # Credits
 
