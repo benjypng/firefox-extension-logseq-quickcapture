@@ -1074,5 +1074,7 @@
 
   const turndownService = new TurndownService();
 
-  return turndownService.turndown(getSelection().getRangeAt(0).cloneContents());
+  return turndownService.turndown(
+    document.getSelection().getRangeAt(0).cloneContents()
+  );
 })();

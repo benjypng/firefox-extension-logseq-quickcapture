@@ -11,9 +11,15 @@
   const { page } = await browser.storage.sync.get("page");
   const { append } = await browser.storage.sync.get("append");
 
-  location = `logseq://x-callback-url/quickCapture?page=${page}&append=${append}&title=${
+  const location = `logseq://x-callback-url/quickCapture?page=${page}&append=${append}&title=${
     tab.title
   }&content=${result ? result : ""}&url=${encodeURIComponent(tab.url)}`;
 
-  window.close();
+  const createdTab = await browser.tabs.create({
+    url: location,
+  });
+
+  window.setTimeout(() => {
+    browser.tabs.remove(createdTab.id);
+  }, 1000);
 })();
