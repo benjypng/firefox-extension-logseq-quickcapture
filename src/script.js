@@ -16,10 +16,11 @@
   }&content=${result ? result : ""}&url=${encodeURIComponent(tab.url)}`;
 
   const createdTab = await browser.tabs.create({
+    active: false,
     url: location,
   });
 
   window.setTimeout(() => {
     browser.tabs.remove(createdTab.id);
-  }, 1000);
+  }, 5000);
 })();
