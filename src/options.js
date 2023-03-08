@@ -4,7 +4,7 @@ function save_options(e) {
   let page = document.getElementById("page").value;
   const append = document.getElementById("append").value;
 
-  if (page === "today") {
+  if (page === "TODAY") {
     page = "TODAY";
   }
 
@@ -27,10 +27,9 @@ function save_options(e) {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-  // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get(
     {
-      page: "today",
+      page: "TODAY",
       append: "true",
     },
     function (items) {
