@@ -12,8 +12,8 @@
   const { append } = await browser.storage.sync.get("append");
 
   const location = `logseq://x-callback-url/quickCapture?page=${page}&append=${append}&title=${
-    tab.title
-  }&content=${result ? result : ""}&url=${encodeURIComponent(tab.url)}`;
+    encodeURIComponent(tab.title)
+  }&content=${result ? encodeURIComponent(result) : ""}&url=${encodeURIComponent(tab.url)}`;
 
   const createdTab = await browser.tabs.create({
     active: false,
