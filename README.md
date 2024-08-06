@@ -1,4 +1,4 @@
-> URL for this extension has moved [here](https://addons.mozilla.org/en-US/firefox/addon/logseq-quick-capture-v2/) as I no longer have access to the account that published the previouus version.
+> URL for this extension has moved [here](https://addons.mozilla.org/en-US/firefox/addon/logseq-quick-capture-v2/) as I no longer have access to the account that published the previous version.
 
 # Overview
 
