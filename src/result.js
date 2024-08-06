@@ -1,8 +1,6 @@
 (function () {
   // Credits: https://github.com/mixmark-io/turndown/blob/master/src/turndown.js
   var TurndownService = (function () {
-    "use strict";
-
     function extend(destination) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
@@ -490,7 +488,7 @@
         if (filter.call(rule, node, options)) return true;
       } else {
         throw new TypeError(
-          "`filter` needs to be a string, array, or function"
+          "`filter` needs to be a string, array, or function",
         );
       }
     }
@@ -708,7 +706,7 @@
           // Wrapping in a custom element ensures elements are reliably arranged in
           // a single element.
           '<x-turndown id="turndown-root">' + input + "</x-turndown>",
-          "text/html"
+          "text/html",
         );
         root = doc.getElementById("turndown-root");
       } else {
@@ -874,7 +872,7 @@
       turndown: function (input) {
         if (!canConvert(input)) {
           throw new TypeError(
-            input + " is not a string, or an element/document/fragment node."
+            input + " is not a string, or an element/document/fragment node.",
           );
         }
 
@@ -899,7 +897,7 @@
           plugin(this);
         } else {
           throw new TypeError(
-            "plugin must be a Function or an Array of Functions"
+            "plugin must be a Function or an Array of Functions",
           );
         }
         return this;
@@ -986,7 +984,7 @@
 
           return join(output, replacement);
         },
-        ""
+        "",
       );
     }
 
@@ -1043,7 +1041,7 @@
       var s2 = trimLeadingNewlines(replacement);
       var nls = Math.max(
         output.length - s1.length,
-        replacement.length - s2.length
+        replacement.length - s2.length,
       );
       var separator = "\n\n".substring(0, nls);
 
@@ -1071,10 +1069,13 @@
 
     return TurndownService;
   })();
-
-  const turndownService = new TurndownService();
-
-  return turndownService.turndown(
-    document.getSelection().getRangeAt(0).cloneContents()
-  );
+  const turndown = new TurndownService();
+  let selection = window.getSelection();
+  if (selection.rangeCount > 0) {
+    let range = selection.getRangeAt(0);
+    let contents = range.cloneContents();
+    return turndown.turndown(contents);
+  } else {
+    return "";
+  }
 })();

@@ -1,26 +1,42 @@
-(async () => {
-  const [tab] = await browser.tabs.query({
-    active: true,
-    lastFocusedWindow: true,
-  });
+(async function () {
+  async function getCurrentTab() {
+    let [tab] = await browser.tabs.query({
+      active: true,
+      lastFocusedWindow: true,
+    });
+    return tab;
+  }
 
-  const [result] = await browser.tabs.executeScript({
-    file: "result.js",
-  });
+  async function buildURL() {
+    const { page } = await browser.storage.sync.get("page");
+    const { append } = await browser.storage.sync.get("append");
+    const tab = await getCurrentTab();
 
-  const { page } = await browser.storage.sync.get("page");
-  const { append } = await browser.storage.sync.get("append");
+    const [result] = await browser.tabs.executeScript({
+      file: "result.js",
+    });
 
-  const location = `logseq://x-callback-url/quickCapture?page=${encodeURIComponent(page)}&append=${append}&title=${
-    encodeURIComponent(tab.title)
-  }&content=${result ? encodeURIComponent(result) : ""}&url=${encodeURIComponent(tab.url)}`;
+    let url;
+    if (page === "cursor") {
+      url = `logseq://x-callback-url/quickCapture?page=""&append=false&title=${encodeURIComponent(
+        tab.title,
+      )}&content=${encodeURIComponent(result)}&url=${encodeURIComponent(tab.url)}`;
+    } else {
+      url = `logseq://x-callback-url/quickCapture?page=${page}&append=${append}&title=${encodeURIComponent(
+        tab.title,
+      )}&content=${encodeURIComponent(result)}&url=${encodeURIComponent(tab.url)}`;
+    }
+    return url;
+  }
 
-  const createdTab = await browser.tabs.create({
+  const url = await buildURL();
+
+  const tab = await browser.tabs.create({
     active: false,
-    url: location,
+    url,
   });
 
-  window.setTimeout(() => {
-    browser.tabs.remove(createdTab.id);
-  }, 5000);
+  setTimeout(async () => {
+    await browser.tabs.remove(tab.id);
+  }, 100);
 })();
