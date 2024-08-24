@@ -1,6 +1,6 @@
 {
   "name": "Logseq Quick Capture",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Quick capture from Firefox to Logseq",
   "icons": {
     "16": "icons/icon16.png",
