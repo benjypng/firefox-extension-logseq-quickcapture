@@ -18,10 +18,5 @@
     "default_icon": "icons/icon32.png",
     "default_title": "logseq-quick-capture",
     "default_popup": "src/index.html"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "addon@example.com"
-    }
   }
 }
