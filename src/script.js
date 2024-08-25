@@ -1,18 +1,19 @@
-(async function () {
-  async function getCurrentTab() {
-    let [tab] = await browser.tabs.query({
+const main = async () => {
+  const getCurrentTab = async () => {
+    const [tab] = await browser.tabs.query({
       active: true,
       lastFocusedWindow: true,
     });
     return tab;
-  }
+  };
 
-  async function buildURL() {
+  const buildURL = async () => {
     const { page } = await browser.storage.sync.get("page");
     const { append } = await browser.storage.sync.get("append");
     const tab = await getCurrentTab();
 
-    const [result] = await browser.tabs.executeScript({
+    // browser.tabs.executeScript is different from Chrome
+    const [result] = await browser.tabs.executeScript(tab.id, {
       file: "result.js",
     });
 
@@ -27,16 +28,16 @@
       )}&content=${encodeURIComponent(result)}&url=${encodeURIComponent(tab.url)}`;
     }
     return url;
-  }
+  };
 
   const url = await buildURL();
-
   const tab = await browser.tabs.create({
-    active: false,
+    active: true,
     url,
   });
-
   setTimeout(async () => {
     await browser.tabs.remove(tab.id);
-  }, 100);
-})();
+  }, 1000);
+};
+
+main();
