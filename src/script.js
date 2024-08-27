@@ -32,12 +32,12 @@ const main = async () => {
 
   const url = await buildURL();
   const tab = await browser.tabs.create({
-    active: true,
+    active: false,
     url,
   });
   setTimeout(async () => {
     await browser.tabs.remove(tab.id);
-  }, 1000);
+  }, 6000);
 };
 
 main();
